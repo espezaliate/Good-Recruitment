@@ -1,6 +1,15 @@
 import React from "react";
 
-export const SuggestionList = ({ search, usernames }) => {
+export const SuggestionList = ({
+  setSearch,
+  search,
+  usernames,
+  setSearchState,
+}) => {
+  const handleClick = (e) => {
+    setSearch(e.target.innerText);
+    setSearchState(false);
+  };
   return (
     <div>
       <ul>
@@ -15,7 +24,8 @@ export const SuggestionList = ({ search, usernames }) => {
                   item.toLowerCase().includes(search.toLowerCase())
               )
               .map((item) => (
-                <li type="none" key={item.length}>
+                // to do: create unique keys for li
+                <li key={item.length} onClick={handleClick}>
                   {item}
                 </li>
               ))

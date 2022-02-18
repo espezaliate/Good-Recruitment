@@ -59,7 +59,7 @@ export const usernamesLoaded = (usernames) => ({
 export const getUsernameList = () => async (dispatch) => {
   dispatch(loadingUsernames());
   try {
-    const response = await fetch(".asd");
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
     const parsed = await response.json();
     return dispatch(usernamesLoaded(parsed.map((i) => i.username)));
   } catch (e) {

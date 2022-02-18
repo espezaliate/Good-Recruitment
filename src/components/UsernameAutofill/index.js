@@ -14,8 +14,10 @@ const UsernameAutofill = ({
   isError,
 }) => {
   const [search, setSearch] = useState("");
+  const [searchState, setSearchState] = useState(false);
 
   const handleInput = (e) => {
+    setSearchState(true);
     setSearch(e.target.value);
   };
 
@@ -38,11 +40,19 @@ const UsernameAutofill = ({
               name="username"
               placeholder="Username"
               onChange={handleInput}
+              value={search}
             />
           </div>
-          <div>
-            <SuggestionList usernames={usernames} search={search} />
-          </div>
+          {searchState && (
+            <div>
+              <SuggestionList
+                usernames={usernames}
+                search={search}
+                setSearch={setSearch}
+                setSearchState={setSearchState}
+              />
+            </div>
+          )}
           <input type="submit" />
         </form>
       )}
