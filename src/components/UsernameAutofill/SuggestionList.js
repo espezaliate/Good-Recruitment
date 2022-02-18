@@ -24,7 +24,8 @@ export const SuggestionList = ({
                   item.toLowerCase().includes(search.toLowerCase())
               )
               .map((item) => (
-                // to do: create unique keys for li
+                // to do: create unique keys for li && give bold to letters
+                //  where searchLetter === itemLetter
                 <li key={item.length} onClick={handleClick}>
                   {item}
                 </li>

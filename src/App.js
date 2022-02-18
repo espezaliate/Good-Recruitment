@@ -1,5 +1,6 @@
 import React from "react";
 import UsernameSuggester from "./components/UsernameAutofill";
+import "./App.css";
 
 const App = () => {
   return (

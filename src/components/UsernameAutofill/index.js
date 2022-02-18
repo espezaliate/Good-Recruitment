@@ -6,6 +6,7 @@ import {
   getUsernameList,
 } from "../../store/usernames";
 import { SuggestionList } from "./SuggestionList";
+import "./form.css";
 
 const UsernameAutofill = ({
   isLoading,
@@ -42,6 +43,7 @@ const UsernameAutofill = ({
               onChange={handleInput}
               value={search}
             />
+            <input type="submit" />
           </div>
           {searchState && search && (
             <div>
@@ -53,7 +55,6 @@ const UsernameAutofill = ({
               />
             </div>
           )}
-          <input type="submit" />
         </form>
       )}
     </>

@@ -1,0 +1,37 @@
+input:first-of-type {
+  margin-right: 5px;
+  background-color: #f1f1f1;
+  width: 250px;
+}
+
+input {
+  height: 20px;
+  padding: 10px;
+  border: none;
+  font-size: 1.1em;
+  margin-bottom: 0;
+}
+
+input:nth-of-type(2) {
+  height: 40px;
+  width: 80px;
+  background-color: #0080ff;
+  color: white;
+}
+
+ul {
+  position: absolute;
+  width: 270px;
+  margin-top: 0;
+  padding-inline-start: 0;
+}
+
+li {
+  list-style: none;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+li + li {
+  border-top: none;
+}
