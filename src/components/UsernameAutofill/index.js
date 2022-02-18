@@ -43,7 +43,7 @@ const UsernameAutofill = ({
               value={search}
             />
           </div>
-          {searchState && (
+          {searchState && search && (
             <div>
               <SuggestionList
                 usernames={usernames}
