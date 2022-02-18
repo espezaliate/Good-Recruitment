@@ -1,18 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   loadingUsernames,
   usernamesLoaded,
   getUsernameList,
 } from "../../store/usernames";
+import { SuggestionList } from "./SuggestionList";
 
-const UsernameAutofill = ({
-  isLoading,
-  loadingUsernames,
-  usernamesLoaded,
-  getUsernameList,
-  usernames,
-}) => {
+const UsernameAutofill = ({ isLoading, getUsernameList, usernames }) => {
+  const [search, setSearch] = useState("");
+
+  const handleInput = (e) => {
+    setSearch(e.target.value);
+  };
+
   useEffect(() => {
     getUsernameList();
   }, []);
@@ -20,16 +21,20 @@ const UsernameAutofill = ({
   return (
     <>
       {isLoading ? (
-        <div>loading</div>
+        <div>Loading...</div>
       ) : (
         <form autoComplete="off">
           <div>
             <input
-              id="myInput"
+              id="username"
               type="text"
-              name="myCountry"
-              placeholder="Country"
+              name="username"
+              placeholder="Username"
+              onChange={handleInput}
             />
+          </div>
+          <div>
+            <SuggestionList usernames={usernames} search={search} />
           </div>
           <input type="submit" />
         </form>

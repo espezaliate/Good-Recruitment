@@ -38,7 +38,8 @@ export const usernamesLoaded = (usernames) => ({
 export const getUsernameList = () => async (dispatch) => {
   dispatch(loadingUsernames());
   const response = await fetch("https://jsonplaceholder.typicode.com/users");
-  return dispatch(usernamesLoaded(response.json()));
+  const parsed = await response.json();
+  return dispatch(usernamesLoaded(parsed.map((i) => i.username)));
 };
 
 export default usernamesReducer;
