@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import {
   loadingUsernames,
@@ -16,14 +16,26 @@ const UsernameAutofill = ({
 }) => {
   const [search, setSearch] = useState("");
   const [searchState, setSearchState] = useState(false);
+  const leaveFormRef = useRef(null);
 
   const handleInput = (e) => {
     setSearchState(true);
     setSearch(e.target.value);
   };
 
+  const handleMousedown = (e) => {
+    const leaveForm = leaveFormRef.current;
+    if (leaveForm && !leaveFormRef.contains(e.target)) {
+      setSearchState(false);
+    }
+  };
+
   useEffect(() => {
+    window.addEventListener("mousedown", handleMousedown);
     getUsernameList();
+    return () => {
+      window.removeEventListener("mousedown", handleMousedown);
+    };
   }, []);
 
   return (
@@ -34,7 +46,7 @@ const UsernameAutofill = ({
         <div>Error whilst loading, please try again</div>
       ) : (
         <form autoComplete="off">
-          <div>
+          <div ref={leaveFormRef}>
             <input
               id="username"
               type="text"
@@ -43,7 +55,7 @@ const UsernameAutofill = ({
               onChange={handleInput}
               value={search}
             />
-            <input type="submit" />
+            <input type="submit" onClick={(e) => e.preventDefault()} />
           </div>
           {searchState && search && (
             <div>
