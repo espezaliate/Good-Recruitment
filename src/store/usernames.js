@@ -7,7 +7,7 @@ const initialState = {
   usernames: [],
   error: {
     status: false,
-    message: "",
+    message: null,
   },
 };
 
@@ -24,7 +24,7 @@ const usernamesReducer = (state = initialState, action) => {
         loading: false,
         error: {
           status: true,
-          message: action.payload.usernames,
+          message: action.payload.error,
         },
       };
     case USERNAMES_LOADED:
@@ -63,7 +63,7 @@ export const getUsernameList = () => async (dispatch) => {
     const parsed = await response.json();
     return dispatch(usernamesLoaded(parsed.map((i) => i.username)));
   } catch (e) {
-    dispatch(loadingFailed(e));
+    dispatch(loadingFailed(e.message));
   }
 };
 
