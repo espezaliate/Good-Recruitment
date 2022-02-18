@@ -12,7 +12,7 @@ export const SuggestionList = ({ search, usernames }) => {
                 (item) =>
                   item.toLowerCase().charAt(0) ===
                     search.toLowerCase().charAt(0) &&
-                  item.toLowerCase().includes(search)
+                  item.toLowerCase().includes(search.toLowerCase())
               )
               .map((item) => (
                 <li type="none" key={item.length}>

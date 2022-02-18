@@ -7,7 +7,12 @@ import {
 } from "../../store/usernames";
 import { SuggestionList } from "./SuggestionList";
 
-const UsernameAutofill = ({ isLoading, getUsernameList, usernames }) => {
+const UsernameAutofill = ({
+  isLoading,
+  getUsernameList,
+  usernames,
+  isError,
+}) => {
   const [search, setSearch] = useState("");
 
   const handleInput = (e) => {
@@ -21,7 +26,9 @@ const UsernameAutofill = ({ isLoading, getUsernameList, usernames }) => {
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+        <div>Loading ...</div>
+      ) : isError ? (
+        <div>Error whilst loading, please try again</div>
       ) : (
         <form autoComplete="off">
           <div>
@@ -46,6 +53,7 @@ const UsernameAutofill = ({ isLoading, getUsernameList, usernames }) => {
 const mapStateToProps = (state) => ({
   isLoading: state.usernames.loading,
   usernames: state.usernames.usernames,
+  isError: state.usernames.error.status,
 });
 
 const mapDispatchToProps = {

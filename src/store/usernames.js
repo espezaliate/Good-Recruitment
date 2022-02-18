@@ -1,9 +1,14 @@
 export const LOADING_USERNAMES = "LOADING_USERNAMES";
+export const LOADING_ERROR = "LOADING_ERROR";
 export const USERNAMES_LOADED = "USERNAMES_LOADED";
 
 const initialState = {
   loading: false,
   usernames: [],
+  error: {
+    status: false,
+    message: "",
+  },
 };
 
 const usernamesReducer = (state = initialState, action) => {
@@ -12,6 +17,15 @@ const usernamesReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case LOADING_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: {
+          status: true,
+          message: action.payload.usernames,
+        },
       };
     case USERNAMES_LOADED:
       return {
@@ -28,6 +42,13 @@ export const loadingUsernames = () => ({
   type: LOADING_USERNAMES,
 });
 
+export const loadingFailed = (error) => ({
+  type: LOADING_ERROR,
+  payload: {
+    error,
+  },
+});
+
 export const usernamesLoaded = (usernames) => ({
   type: USERNAMES_LOADED,
   payload: {
@@ -37,9 +58,13 @@ export const usernamesLoaded = (usernames) => ({
 
 export const getUsernameList = () => async (dispatch) => {
   dispatch(loadingUsernames());
-  const response = await fetch("https://jsonplaceholder.typicode.com/users");
-  const parsed = await response.json();
-  return dispatch(usernamesLoaded(parsed.map((i) => i.username)));
+  try {
+    const response = await fetch(".asd");
+    const parsed = await response.json();
+    return dispatch(usernamesLoaded(parsed.map((i) => i.username)));
+  } catch (e) {
+    dispatch(loadingFailed(e));
+  }
 };
 
 export default usernamesReducer;
