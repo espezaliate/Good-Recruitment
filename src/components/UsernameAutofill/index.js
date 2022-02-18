@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import {
   loadingUsernames,
   usernamesLoaded,
@@ -13,27 +13,27 @@ const UsernameAutofill = ({
   getUsernameList,
   usernames,
 }) => {
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(getUsernameList());
-    // console.log(usernames);
+    getUsernameList();
   }, []);
 
   return (
     <>
-      {isLoading && <div>loading</div>}
-      <form autoComplete="off">
-        <div>
-          <input
-            id="myInput"
-            type="text"
-            name="myCountry"
-            placeholder="Country"
-          />
-        </div>
-        <input type="submit" />
-      </form>
+      {isLoading ? (
+        <div>loading</div>
+      ) : (
+        <form autoComplete="off">
+          <div>
+            <input
+              id="myInput"
+              type="text"
+              name="myCountry"
+              placeholder="Country"
+            />
+          </div>
+          <input type="submit" />
+        </form>
+      )}
     </>
   );
 };
